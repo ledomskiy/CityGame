@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="textDefault">#F000</color>
+    <color name="first_char_color">#F00A</color>
+    <color name="answer_status_success">#F0A0</color>
+    <color name="answer_status_already_exist">#FF00</color>
+    <color name="answer_status_city_not_exist">#FF00</color>
+</resources>

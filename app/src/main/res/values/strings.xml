@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CityGame</string>
+    <string name="action_settings">Настройки</string>
+    <string name="new_game">Новая игра</string>
+    <string name="continue_game">Продолжить</string>
+    <string name="list_cities">Список городов</string>
+    <string name="rules">Правила</string>
+    
+    <string name="player1">Игрок 1:</string>
+    <string name="player2">Игрок 2:</string>
+    <string name="vs_android">Против ANDROID:</string>
+    <string name="answer_time">Время на ход:</string>
+    <string name="amount_hint">Количество подсказок:</string>
+    <string name="android_level">Уровень сложности:</string>
+    <string name="play">Играть!</string>
+    <string name="input_anwer">Ввести ответ</string>
+    
+    <string name="answer_status_success">Принято</string>
+    <string name="answer_status_already_exist">Город уже был</string>
+    <string name="answer_status_city_not_exist">Город не существует</string>
+    
+    <string-array name="answer_time_array">
+        <item>Без ограничения</item>
+        <item>30 секунд</item>
+        <item>60 секунд</item>
+        <item>90 секунд</item>
+        <item>120 секунд</item>
+    </string-array>
+	
+    <string-array name="amount_hint_array">
+        <item>Без подсказок</item>
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+    </string-array>
+    
+    <string-array name="android_level_array">
+        <item>Легкий</item>
+        <item>Средний</item>
+        <item>Сложный</item>
+    </string-array>
+</resources>
