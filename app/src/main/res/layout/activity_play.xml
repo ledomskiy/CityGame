@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	<TextView 
-	    android:id="@+id/player_current"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:textColor="@color/textDefault"/>
+
+    <fragment android:name="com.lpa.citygame.InfoPanelFragment"
+        android:id="@+id/info_panel_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 	
 	<fragment android:name="com.lpa.citygame.InputAnswerFragment"
 	    android:id="@+id/input_answer_fragment"
