@@ -1,11 +1,14 @@
 package com.lpa.citygame.Entity;
 
+import android.os.CountDownTimer;
+
 public class PlayState {
-	private String [] players;
+
+    private String [] players;
 	private boolean vsAnrdoid;
 	private int indexCurrentPlayer;
-	
-	private static PlayState playState = null;
+
+    private static PlayState playState = null;
 	
 	private PlayState (){
 		players = new String [2];
@@ -54,9 +57,10 @@ public class PlayState {
 	}
 	
 	// Создание новой игры
-	public void CreateNewGame (String player1, String player2){
+	public void createNewGame(String player1, String player2){
 		setPlayer1(player1);
 		setPlayer2(player2);
 	}
+
 
 }

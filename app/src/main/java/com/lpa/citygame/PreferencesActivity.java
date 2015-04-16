@@ -50,7 +50,7 @@ public class PreferencesActivity extends ActionBarActivity implements OnClickLis
 	public void onClick (View v){
 		switch (v.getId()){
 			case R.id.play:
-				PlayState.getInstance().CreateNewGame(player1.getText().toString(), player2.getText().toString());
+				PlayState.getInstance().createNewGame(player1.getText().toString(), player2.getText().toString());
 				Intent intent = new Intent (this, PlayActivity.class);
 				startActivity (intent);
 				break;
