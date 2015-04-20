@@ -1,7 +1,9 @@
 package com.lpa.citygame;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -19,10 +21,12 @@ public class TimerService extends IntentService{
     }
 
     private ArrayList<ITimerObserver> observers;
+    private CountDownTimer timer;
 
     public TimerService (){
         super ("TimerService");
         observers = new ArrayList<ITimerObserver> ();
+        timer = null;
     }
 
     public void attachObserver (ITimerObserver observer){
@@ -30,19 +34,31 @@ public class TimerService extends IntentService{
     }
 
 
-    private void startTimer (long secondsInFuture){
-        new CountDownTimer (secondsInFuture*1000, 1000){
-            public void onTick (long milliUntilFinish){
-                for (ITimerObserver observer : observers){
-                    observer.onTimerTick(milliUntilFinish/1000);
+    public void startTimer (){
+        SharedPreferences preferences = getSharedPreferences(PreferencesActivity.PLAY_PREFERENCES, Activity.MODE_PRIVATE);
+        long answerTimeInSeconds = preferences.getLong(PreferencesActivity.ANSWER_TIME, 0);
+
+        if(timer == null) {
+            timer = new CountDownTimer(answerTimeInSeconds * 1000, 1000) {
+                public void onTick(long milliUntilFinish) {
+                    for (ITimerObserver observer : observers) {
+                        observer.onTimerTick(milliUntilFinish / 1000);
+                    }
                 }
-            }
-            public void onFinish (){
-                for (ITimerObserver observer : observers){
-                    observer.onTimerFinish();
+
+                public void onFinish() {
+                    for (ITimerObserver observer : observers) {
+                        observer.onTimerFinish();
+                    }
                 }
-            }
-        };
+            };
+            timer.start();
+        }
+    }
+
+    public void finishTimer (){
+        timer.cancel();
+        timer = null;
     }
 
     @Override

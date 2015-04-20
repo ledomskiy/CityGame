@@ -2,10 +2,13 @@ package com.lpa.citygame;
 
 import android.app.FragmentManager;
 import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.lpa.citygame.Entity.Answer;
@@ -21,10 +24,14 @@ public class PlayActivity extends ActionBarActivity implements InputAnswerFragme
     private TimerService timerService;
     private ServiceConnection serviceConnection = new ServiceConnection() {
         public void onServiceConnected (ComponentName className, IBinder service){
+            Log.v("TIMER_SERVICE", "ServiceConnected");
             timerService = ((TimerService.TimerBinder)service).getService();
+            timerService.attachObserver(infoPanelFragment);
+            timerService.startTimer();
         }
 
         public void onServiceDisconnected (ComponentName className){
+            Log.v ("TIMER_SERVICE", "ServiceDisconnected");
             timerService = null;
         }
     };
@@ -46,9 +53,10 @@ public class PlayActivity extends ActionBarActivity implements InputAnswerFragme
 		historyAnswerFragment.setListAdapter(historyArrayAdapter);
 
         // Привязываем TimerService
+        Log.v ("BIND_TIMER", "Start bind service...");
         Intent bindTimerIntent = new Intent (this, TimerService.class);
-        bindService (bindTimerIntent, serviceConnection, BIND_ADJUST_WITH_ACTIVITY);
-		
+        bindService (bindTimerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+
 	}
 	
 	public AnswerStatus onInputAnswer(String city) {

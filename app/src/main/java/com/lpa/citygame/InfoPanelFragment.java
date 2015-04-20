@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-public class InfoPanelFragment extends Fragment {
+public class InfoPanelFragment extends Fragment implements TimerService.ITimerObserver {
 
     private TextView playerTextView;
     private TextView timerTextView;
@@ -35,6 +35,7 @@ public class InfoPanelFragment extends Fragment {
 
         playerTextView.setText(player);
 
+        /*
         new CountDownTimer (30000, 1000) {
             public void onTick(long millisUntilFinished) {
                 timerTextView.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -44,6 +45,15 @@ public class InfoPanelFragment extends Fragment {
                 timerTextView.setText("done!");
             }
         }.start();
+        */
+    }
+
+    public void onTimerTick (long secondsUntilFinish){
+        timerTextView.setText ("seconds remaining: " + secondsUntilFinish);
+    }
+
+    public void onTimerFinish (){
+        timerTextView.setText ("done");
     }
 
 }
