@@ -61,6 +61,11 @@ public class TimerService extends IntentService{
         timer = null;
     }
 
+    public void restartTimer (){
+        finishTimer();
+        startTimer();
+    }
+
     @Override
     protected void onHandleIntent (Intent intent){
 

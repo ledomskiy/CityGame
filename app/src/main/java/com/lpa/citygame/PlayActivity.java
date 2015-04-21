@@ -16,7 +16,7 @@ import com.lpa.citygame.Entity.AnswerManager;
 import com.lpa.citygame.Entity.AnswerManager.AnswerStatus;
 import com.lpa.citygame.Entity.PlayState;
 
-public class PlayActivity extends ActionBarActivity implements InputAnswerFragment.OnInputAnswerListener{
+public class PlayActivity extends ActionBarActivity implements InputAnswerFragment.OnInputAnswerListener, TimerService.ITimerObserver{
 
     private InfoPanelFragment infoPanelFragment;
     private ArrayAdapter<Answer> historyArrayAdapter;
@@ -27,6 +27,7 @@ public class PlayActivity extends ActionBarActivity implements InputAnswerFragme
             Log.v("TIMER_SERVICE", "ServiceConnected");
             timerService = ((TimerService.TimerBinder)service).getService();
             timerService.attachObserver(infoPanelFragment);
+            timerService.attachObserver(PlayActivity. this);
             timerService.startTimer();
         }
 
@@ -69,8 +70,23 @@ public class PlayActivity extends ActionBarActivity implements InputAnswerFragme
 			playState.switchCurrentPlayer();
 			infoPanelFragment.onPlayerChanged(playState.getCurrentPlayer(), 0, 0);
 			historyArrayAdapter.notifyDataSetChanged();
+            timerService.restartTimer();
 		}
 		return answerStatus;
 	}
 
+    public void showResultActivity (){
+        Intent intent = new Intent (this, ResultActivity.class);
+        startActivity (intent);
+    }
+
+    @Override
+    public void onTimerTick(long secondsUntilFinish) {
+
+    }
+
+    @Override
+    public void onTimerFinish() {
+       showResultActivity();
+    }
 }
