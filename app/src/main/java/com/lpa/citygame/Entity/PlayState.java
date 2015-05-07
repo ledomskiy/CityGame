@@ -1,11 +1,10 @@
 package com.lpa.citygame.Entity;
 
-import android.os.CountDownTimer;
-
 public class PlayState {
+    private final String ANDROID_PLAYER_NAME = "ANDROID";
 
     private String [] players;
-	private boolean vsAnrdoid;
+	private boolean vsAndroid;
 	private int indexCurrentPlayer;
 
     private static PlayState playState = null;
@@ -23,8 +22,8 @@ public class PlayState {
 		return players[1];
 	}
 	
-	public boolean isVsAnrdoid() {
-		return vsAnrdoid;
+	public boolean isVsAndroid() {
+		return vsAndroid;
 	}
 	
 	public void setPlayer1(String player) {
@@ -35,8 +34,11 @@ public class PlayState {
 		players[1] = player;
 	}
 	
-	public void setVsAnrdoid(boolean vsAnrdoid) {
-		this.vsAnrdoid = vsAnrdoid;
+	public void setVsAndroid(boolean vsAndroid) {
+		this.vsAndroid = vsAndroid;
+        if (vsAndroid) {
+            players[1] = ANDROID_PLAYER_NAME;
+        }
 	}
 	
 	public static PlayState getInstance (){
@@ -62,5 +64,7 @@ public class PlayState {
 		setPlayer2(player2);
 	}
 
-
+    public boolean isCurrentPlayerAndroid (){
+        return vsAndroid && players [indexCurrentPlayer].equals(ANDROID_PLAYER_NAME);
+    }
 }
