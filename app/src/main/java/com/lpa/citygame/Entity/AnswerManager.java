@@ -1,12 +1,15 @@
 package com.lpa.citygame.Entity;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.lpa.citygame.database.CityLoader;
 
 public class AnswerManager {
-	
+    private Context context;
+
 	public enum AnswerStatus {
 		SUCCESS,
 		ALREADY_EXIST,
@@ -17,15 +20,16 @@ public class AnswerManager {
 	private HashMap <String, City> cityList;
 	private ArrayList<Answer> answers;
 	
-	private AnswerManager(){
-		CityLoader cityLoader = new CityLoader ();
+	private AnswerManager(Context context){
+        this.context = context;
+		CityLoader cityLoader = new CityLoader (context);
 		cityList = cityLoader.getCityAnswers();
 		answers = new ArrayList<Answer>();
 	};
 	
-	public static AnswerManager getInstance (){
+	public static AnswerManager getInstance (Context context){
 		if (instance == null){
-			instance = new AnswerManager();
+			instance = new AnswerManager(context);
 		}
 		return instance;
 	}

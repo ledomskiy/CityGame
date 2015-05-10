@@ -50,7 +50,7 @@ public class PlayActivity extends ActionBarActivity implements InputAnswerFragme
         infoPanelFragment.onPlayerChanged(playState.getCurrentPlayer(), 0, 0);
 		
 		HistoryAnswerFragment historyAnswerFragment = (HistoryAnswerFragment)fragmentManager.findFragmentById(R.id.history_answer_fragment);
-		historyArrayAdapter = new ArrayAdapter<Answer> (this, android.R.layout.simple_list_item_1, AnswerManager.getInstance().getAnswers());
+		historyArrayAdapter = new ArrayAdapter<Answer> (this, android.R.layout.simple_list_item_1, AnswerManager.getInstance(this).getAnswers());
 		historyAnswerFragment.setListAdapter(historyArrayAdapter);
 
         // Привязываем TimerService
@@ -62,7 +62,7 @@ public class PlayActivity extends ActionBarActivity implements InputAnswerFragme
 	
 	public AnswerStatus onInputAnswer(String city) {
 		PlayState playState = PlayState.getInstance();
-		AnswerManager answerManager = AnswerManager.getInstance();
+		AnswerManager answerManager = AnswerManager.getInstance(this);
 		Answer answer = new Answer (playState.getCurrentPlayer(), city, 0);
 		AnswerStatus answerStatus = answerManager.addAnswer(answer);
 		

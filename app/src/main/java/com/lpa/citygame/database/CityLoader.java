@@ -2,26 +2,37 @@ package com.lpa.citygame.database;
 
 import java.util.HashMap;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.database.Cursor;
 
+import com.lpa.citygame.Entity.CitiesContentProvider;
 import com.lpa.citygame.Entity.City;
 
 public class CityLoader {
-	DatabaseInstance db;
-	public CityLoader (){
+	private DatabaseInstance db;
+    private Context context;
+	public CityLoader (Context context){
 		db = DatabaseInstance.getInstance();
+        this.context = context;
 	}
 	
 	public HashMap <String, City> getCityAnswers (){
 		HashMap <String, City> resultHashMap = new HashMap <String, City>();
-		
-		Cursor cursor = db.getWritableDatabase().rawQuery("SELECT DISTINCT CityName, FirstChar, LastChar FROM City;", null);
-		int indexCityNameColumn;
+        ContentResolver contentResolver = context.getContentResolver();
+        String[] projection = {
+                CitiesContentProvider.CITY_NAME,
+                CitiesContentProvider.FIRST_CHAR,
+                CitiesContentProvider.LAST_CHAR
+        };
+        Cursor cursor = contentResolver.query(CitiesContentProvider.CONTENT_URI, projection, null, null, null);
+
+        int indexCityNameColumn;
 		int indexFirstCharColumn;
 		int indexLastCharColumn;
-		indexCityNameColumn = cursor.getColumnIndex("CityName");
-		indexFirstCharColumn = cursor.getColumnIndex("FirstChar");
-		indexLastCharColumn = cursor.getColumnIndex("LastChar");
+		indexCityNameColumn = cursor.getColumnIndex(CitiesContentProvider.CITY_NAME);
+		indexFirstCharColumn = cursor.getColumnIndex(CitiesContentProvider.FIRST_CHAR);
+		indexLastCharColumn = cursor.getColumnIndex(CitiesContentProvider.LAST_CHAR);
 				
 		String cityName;
 		String firstChar;
@@ -35,9 +46,9 @@ public class CityLoader {
 			
 			resultHashMap.put(cityName, new City (cityName, firstChar, lastChar));
 		} while (cursor.moveToNext());
-		
+
 		cursor.close();
-		
+
 		return resultHashMap;
 	}
 }

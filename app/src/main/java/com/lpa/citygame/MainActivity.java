@@ -16,18 +16,22 @@ import com.lpa.citygame.database.DatabaseInstance;
 public class MainActivity extends ActionBarActivity implements OnClickListener{
 
 	// Инициализация приложения
-	public void init (){
+    /*
+    public void init (){
 		DatabaseInstance.createInstance(this);
 	}
+	*/
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		init ();
 
 		Button newGame = (Button)findViewById(R.id.new_game);
 		newGame.setOnClickListener(this);
+
+        /*
 		DatabaseInstance db = DatabaseInstance.getInstance();
 
 		if (db != null) {
@@ -45,6 +49,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
 				} while (cursor.moveToNext());
 			}
 		}
+		*/
 
 	}
 

@@ -62,7 +62,7 @@ public class InputAnswerFragment extends Fragment {
                 answerStatusTextView.setText(R.string.answer_status_success);
                 answerStatusTextView.setTextColor(getResources().getColor(R.color.answer_status_success));
                 answerEditText.setText("");
-                String lastCharCityName = AnswerManager.getInstance().getLastChar(cityName);
+                String lastCharCityName = AnswerManager.getInstance(getActivity()).getLastChar(cityName);
                 answerFirstCharTextView.setText(lastCharCityName);
 
                 Log.v("AnswerButtonPressed","Before Android");
